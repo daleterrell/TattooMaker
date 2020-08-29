@@ -1,0 +1,57 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <h1>Hello!</h1>
+    <h3>Welcome to TattooMaker, where you can schedule appointments with your favorite artists!</h3>
+    <table id="artists">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Specialty</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            function getAllArtists() {
+                axios.get('http://localhost:8080/api/artists')
+                    .then (
+                        function (response) {
+                            console.log('getAllArtists() response=', response);
+                            // get the location of tbody
+                            const tbody = document.querySelector("#artists tbody");
+                            
+                            // then we are going to loop through all elements in response
+                            response.data.forEach((element) => {
+                                console.log('getAllArtists() element', element);
+                                // {id: 1, firstName: "Sam", lastName: "Worthington", dateOfBirth: 207792000000}
+
+                                // then we are going to create some html
+                                let row = `
+                                    <tr>
+                                        <td>${element.id}</td>
+                                        <td>${element.firstName}</td>
+                                        <td>${element.lastName}</td>
+                                        <td>${element.dateOfBirth}</td>
+                                    </tr>
+                                `;
+
+                                // then we are going to insert our html into the tbody
+                                tbody.insertAdjacentHTML('beforeend', row);
+
+                            })
+            }
+        </script>
+    </table>
+
+
+
+</body>
+
+</html>
